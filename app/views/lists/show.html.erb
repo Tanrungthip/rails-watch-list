@@ -3,4 +3,20 @@
     <h1><%= @list.name %></h1>
     <%= link_to 'My lists', lists_path, class: 'text-primary text-decoration-none'%></li>
   </div>
+  <%= link_to "Add a bookmark", new_list_bookmark_path(@list), class:"btn btn-primary"%>
+
+  <div class="container mt-2">
+    <% @list.bookmarks.each do |bookmark| %>
+      <ul>
+        <li><%= bookmark.movie.title %><br>
+        <%= bookmark.movie.rating %><br>
+        <%= bookmark.movie.overview %><br>
+        <%= bookmark.comment %><br>
+        <%= link_to bookmark_path(bookmark), class: 'card-remove-link', data: { turbo_method: :delete, turbo_confirm: "Delete '#{bookmark.movie.title}'?" } do %>
+          <i class="fa-solid fa-skull"></i></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+  </div>
 </div>
