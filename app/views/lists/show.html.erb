@@ -1,22 +1,30 @@
 <div class="container mt-3">
-  <div class="d-flex justify-content-between">
-    <h1><%= @list.name %></h1>
-    <%= link_to 'My lists', lists_path, class: 'text-primary text-decoration-none'%></li>
-  </div>
-  <%= link_to "Add a bookmark", new_list_bookmark_path(@list), class:"btn btn-primary"%>
+     <div class="d-flex justify-content-between">
+        <h1><%= @list.name %></h1>
+        <%= link_to 'My lists', lists_path, class: 'text-primary text-decoration-none'%>
+      </div>
 
   <div class="container mt-2">
-    <% @list.bookmarks.each do |bookmark| %>
-      <ul>
-        <li><%= bookmark.movie.title %><br>
-        <%= bookmark.movie.rating %><br>
-        <%= bookmark.movie.overview %><br>
-        <%= bookmark.comment %><br>
-        <%= link_to bookmark_path(bookmark), class: 'card-remove-link', data: { turbo_method: :delete, turbo_confirm: "Delete '#{bookmark.movie.title}'?" } do %>
-          <i class="fa-solid fa-skull"></i></li>
-        <% end %>
-      </ul>
-    <% end %>
-
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+      <% @list.bookmarks.each do |bookmark| %>
+        <div class="col">
+          <div class="card">
+            <%= image_tag "http://source.unsplash.com/featured/?#{bookmark.movie.title}&#{rand(1000)}", class: "card-img-top", alt: "movie_image" %>
+            <div class="card-body">
+              <h5 class="card-title"><%= bookmark.movie.title %></h5>
+              <p class="card-text"><%= bookmark.movie.overview %></p>
+              <p class="card-text"><%= bookmark.comment %></p>
+              <p class="card-text"><i class="fa-solid fa-thumbs-up"></i> <%= bookmark.movie.rating %></p>
+              <%= link_to bookmark_path(bookmark), class: 'card-remove-link', data: { turbo_method: :delete, turbo_confirm: "Delete '#{bookmark.movie.title}' ?" } do %>
+                <i class="fa-solid fa-trash-can"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <br>
+  <%= link_to "Add a bookmark", new_list_bookmark_path(@list), class:"btn btn-primary text-light"%>
   </div>
+  <br>
 </div>

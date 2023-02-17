@@ -1,9 +1,12 @@
 <div class="container mt-3">
-  <h1>Create a movie list</h1>
-
+  <div class="d-flex justify-content-between">
+    <h1>Create a movie list</h1>
+    <%= link_to 'Back', lists_path, class: 'text-primary text-decoration-none'%></li>
+  </div>
   <%= simple_form_for @list do |f| %>
     <%= f.input :name %>
     <%= f.submit 'Add', class: 'btn btn-primary' %>
   <% end %>
+
 
 </div>
